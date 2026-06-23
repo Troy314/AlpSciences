@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Éditeur de projets — Alp'Sciences</title>
+<style>
+  :root{
+    --violet:#8c57f6; --violet-dk:#6f3fd6; --plum:#4a2e6f; --plum-ink:#2c1b43;
+    --gold:#f1cb48; --paper:#f8f5ef; --pure:#fffdf9; --lav:#efe9f7; --line:#e6dfd2;
+    --ink:#2c1b43; --ink-soft:#574569; --mist:#8c7fa3; --radius:14px;
+    --shadow:0 14px 40px -22px rgba(52,31,80,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.55;font-size:15px;
+    background-image:radial-gradient(circle at 8% -6%,rgba(140,87,246,.10),transparent 42%),radial-gradient(circle at 98% 4%,rgba(241,203,72,.12),transparent 40%);}
+  a{color:var(--violet-dk)}
+  button{font-family:inherit;cursor:pointer}
+  .btn{border:1.5px solid var(--line);background:var(--pure);color:var(--plum);font-weight:700;
+    padding:8px 14px;border-radius:999px;font-size:.86rem;transition:.18s;display:inline-flex;align-items:center;gap:7px}
+  .btn:hover{border-color:var(--violet);color:var(--violet-dk)}
+  .btn.primary{background:var(--plum);color:#fff;border-color:var(--plum)}
+  .btn.primary:hover{background:var(--violet-dk);border-color:var(--violet-dk);color:#fff}
+  .btn.gold{background:var(--gold);border-color:var(--gold);color:var(--plum-ink)}
+  .btn.gold:hover{background:#e0bc30;border-color:#e0bc30}
+  .btn.sm{padding:4px 10px;font-size:.78rem}
+  .btn.icon{padding:5px 9px;border-radius:9px}
+  .danger:hover{border-color:#d9534f;color:#d9534f}
+
+  header.bar{position:sticky;top:0;z-index:20;background:rgba(255,253,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:11px clamp(14px,3vw,28px);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  header.bar .title{font-weight:800;color:var(--plum);font-size:1.02rem;margin-right:auto;display:flex;align-items:center;gap:9px}
+  header.bar .dot{width:11px;height:11px;border-radius:50%;background:var(--violet);box-shadow:0 0 0 4px rgba(140,87,246,.16)}
+  .save-state{font-size:.78rem;color:var(--mist);font-weight:600}
+
+  .layout{display:grid;grid-template-columns:260px 1fr;gap:22px;max-width:1280px;margin:22px auto;padding:0 clamp(14px,3vw,28px)}
+  @media(max-width:820px){.layout{grid-template-columns:1fr}}
+
+  .side h2{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--violet-dk);margin:4px 2px 10px}
+  .plist{display:flex;flex-direction:column;gap:8px}
+  .pcard{border:1.5px solid var(--line);background:var(--pure);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.15s;display:flex;gap:9px;align-items:flex-start}
+  .pcard:hover{border-color:var(--violet)}
+  .pcard.sel{border-color:var(--violet);box-shadow:var(--shadow);background:#fff}
+  .pcard .pt{font-weight:700;font-size:.9rem;color:var(--plum-ink);line-height:1.25}
+  .pcard .pm{font-size:.72rem;color:var(--mist);margin-top:2px}
+  .pcard .grip{color:var(--mist);font-size:.95rem;line-height:1.2;cursor:grab;user-select:none}
+  .pcard.drag{opacity:.4}
+  .pcard .pin-dot{font-size:.7rem;vertical-align:middle;line-height:1}
+  .addp{margin-top:12px;width:100%;justify-content:center}
+
+  .panel{background:var(--pure);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(16px,2.4vw,26px)}
+  .empty{display:grid;place-items:center;min-height:50vh;color:var(--mist);text-align:center;gap:10px}
+
+  fieldset{border:0;margin:0 0 20px}
+  legend,.flbl{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet-dk);font-weight:800;margin-bottom:9px;display:block}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.grid2{grid-template-columns:1fr}}
+  label.field{display:block;margin-bottom:13px}
+  label.field>span{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:4px}
+  input[type=text],input[type=month],input[type=url],textarea{width:100%;font-family:inherit;font-size:.92rem;
+    border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);resize:vertical}
+  input:focus,textarea:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 3px rgba(140,87,246,.14)}
+  .hint{font-size:.74rem;color:var(--mist);margin-top:3px}
+  .row{display:flex;gap:9px;align-items:center}
+  .thumb{width:74px;height:54px;border-radius:9px;object-fit:cover;border:1px solid var(--line);background:var(--lav);flex:none}
+
+  /* bilingual side-by-side */
+  .bilingual-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+  @media(max-width:900px){.bilingual-grid{grid-template-columns:1fr}}
+  .lang-col-label{font-size:.69rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--violet-dk);background:var(--lav);border-radius:6px;padding:3px 9px;
+    display:inline-block;margin-bottom:7px}
+
+  /* blocks */
+  .blocks{display:flex;flex-direction:column;gap:9px}
+  .block{border:1.5px solid var(--line);border-radius:11px;background:#fff;overflow:hidden}
+  .block .bhead{display:flex;align-items:center;gap:8px;padding:5px 8px;background:var(--lav);border-bottom:1px solid var(--line)}
+  .block .btype{font-size:.72rem;font-weight:800;color:var(--plum);text-transform:uppercase;letter-spacing:.06em;margin-right:auto;display:flex;align-items:center;gap:6px}
+  .block textarea{border:0;border-radius:0;padding:10px 12px}
+  .block textarea:focus{box-shadow:none}
+  .block.subhead textarea{font-weight:800;color:var(--plum)}
+  .block.raw textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;background:#fbf9ff}
+  .miniico{width:14px;height:14px;display:inline-block;color:var(--violet-dk)}
+  .addblock{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .sectool{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+  .mdpastebox{margin-bottom:10px}
+  .mdpaste{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem}
+  .htmlbox{margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .htmlbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:var(--lav);border-bottom:1px solid var(--line)}
+  pre.htmlbrut{margin:0;max-height:240px;overflow:auto;background:#1f1430;color:#e8def8;padding:11px 12px;font-size:.76rem;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+
+  /* tags & resources */
+  .taglist,.reslist{display:flex;flex-direction:column;gap:8px}
+  .tagrow,.resrow{display:grid;gap:8px;align-items:center}
+  .tagrow{grid-template-columns:1fr 1fr auto}
+  .resrow{grid-template-columns:1fr 1fr 1.3fr auto}
+  @media(max-width:620px){.tagrow{grid-template-columns:1fr auto}.resrow{grid-template-columns:1fr auto}}
+
+  details.adv{margin-top:18px;border:1px dashed var(--line);border-radius:10px;padding:8px 12px;background:#fbf9ff}
+  details.adv summary{cursor:pointer;font-weight:700;color:var(--ink-soft);font-size:.84rem}
+  pre.json{margin-top:10px;max-height:320px;overflow:auto;background:#1f1430;color:#e8def8;border-radius:9px;padding:12px;font-size:.74rem;line-height:1.5}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--plum-ink);color:#fff;
+    padding:10px 18px;border-radius:999px;font-size:.85rem;font-weight:600;opacity:0;transition:.25s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1}
+  input[type=file]{display:none}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="title"><span class="dot"></span> Éditeur de projets · Alp'Sciences</div>
+  <span class="save-state" id="saveState">—</span>
+  <label class="btn" for="importFile">⬆ Importer projects.json</label>
+  <input type="file" id="importFile" accept=".json,application/json">
+  <label class="btn" for="importMd" title="Créer un projet à partir d'un fichier Markdown (importé en FR)">⬇ Importer un .md</label>
+  <input type="file" id="importMd" accept=".md,.markdown,.txt,text/markdown,text/plain">
+  <button class="btn" id="newBtn">🗎 Nouveau fichier</button>
+  <button class="btn primary" id="exportBtn">⬇ Exporter projects.json</button>
+</header>
+
+<div class="layout">
+  <aside class="side">
+    <h2>Projets</h2>
+    <div class="plist" id="plist"></div>
+    <button class="btn addp" id="addProj">＋ Ajouter un projet</button>
+  </aside>
+  <main id="panel" class="panel"></main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ============================ helpers ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const el=(t,a={},...kids)=>{const n=document.createElement(t);for(const k in a){if(k==="class")n.className=a[k];else if(k==="html")n.innerHTML=a[k];else if(k.startsWith("on"))n.addEventListener(k.slice(2),a[k]);else if(a[k]!=null)n.setAttribute(k,a[k]);}kids.flat().forEach(c=>n.append(c.nodeType?c:document.createTextNode(c)));return n;};
+const esc = s => (s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const slug = s => (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),1900);}
+
+const SECTIONS=[
+  ["abstract","Résumé (abstract)","Phrase d'accroche affichée sur la carte et en tête du projet."],
+  ["contexte","Contexte & objectifs",""],
+  ["role","Rôle & responsabilités","Astuce : un sous-titre + une liste à puces fonctionne très bien ici."],
+  ["deroulement","Déroulement / mise en œuvre",""],
+  ["resultats","Résultats",""]
+];
+const ICON={
+  p:'<svg class="miniico" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2h10v2H9v10H7V4H3z"/></svg>',
+  subhead:'<svg class="miniico" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3h2v4h4V3h2v10H8V9H4v4H2zM12 5h2v8h-2z"/></svg>',
+  ul:'<svg class="miniico" viewBox="0 0 16 16" fill="currentColor"><circle cx="2.5" cy="4" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="2.5" cy="12" r="1.6"/><rect x="6" y="3" width="9" height="2"/><rect x="6" y="7" width="9" height="2"/><rect x="6" y="11" width="9" height="2"/></svg>',
+  raw:'<svg class="miniico" viewBox="0 0 16 16" fill="currentColor"><path d="M5.7 3.3 1 8l4.7 4.7 1.4-1.4L3.8 8l3.3-3.3zM10.3 3.3 8.9 4.7 12.2 8l-3.3 3.3 1.4 1.4L15 8z"/></svg>'
+};
+
+/* ===================== HTML <-> blocks ===================== */
+function htmlToBlocks(htmlStr){
+  const out=[];
+  if(!htmlStr) return out;
+  const body=new DOMParser().parseFromString("<body>"+htmlStr+"</body>","text/html").body;
+  body.childNodes.forEach(node=>{
+    if(node.nodeType===3){const t=node.textContent.trim();if(t)out.push({type:"p",text:t});return;}
+    if(node.nodeType!==1)return;
+    const elx=node, tag=elx.tagName.toLowerCase();
+    if(tag==="ul"||tag==="ol"){
+      const items=[...elx.querySelectorAll("li")].map(li=>li.textContent.trim()).filter(Boolean);
+      out.push({type:"ul",items:items.length?items:[""]});return;
+    }
+    if(elx.classList.contains("subhead")){out.push({type:"subhead",text:elx.textContent.trim()});return;}
+    if(tag==="p"){
+      const sub=elx.querySelector(".subhead");
+      if(sub && elx.textContent.trim()===sub.textContent.trim()){out.push({type:"subhead",text:sub.textContent.trim()});return;}
+      out.push({type:"p",text:elx.textContent.trim()});return;
+    }
+    out.push({type:"raw",text:elx.outerHTML});
+  });
+  return out;
+}
+function blocksToHTML(blocks){
+  return (blocks||[]).map(b=>{
+    if(b.type==="p")     return b.text.trim()?"<p>"+esc(b.text.trim())+"</p>":"";
+    if(b.type==="subhead")return b.text.trim()?'<div class="subhead">'+esc(b.text.trim())+"</div>":"";
+    if(b.type==="ul"){const li=(b.items||[]).map(i=>i.trim()).filter(Boolean);return li.length?"<ul>"+li.map(i=>"<li>"+esc(i)+"</li>").join("")+"</ul>":"";}
+    if(b.type==="raw")   return b.text||"";
+    return "";
+  }).join("");
+}
+
+/* ===================== markdown → blocks ===================== */
+function inlineMd(s){
+  let t=esc(s);
+  t=t.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  t=t.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/__([^_]+)__/g,"<strong>$1</strong>");
+  t=t.replace(/(^|[^*])\*([^*\s][^*]*?)\*/g,"$1<em>$2</em>").replace(/(^|[^_])_([^_\s][^_]*?)_/g,"$1<em>$2</em>");
+  t=t.replace(/`([^`]+)`/g,"<code>$1</code>");
+  return t;
+}
+const hasFmt = h => /<(a|strong|em|code)\b/.test(h);
+function mdToBlocks(md){
+  const lines=(md||"").replace(/\r\n?/g,"\n").split("\n");
+  const blocks=[]; let para=[], list=null;
+  const flushPara=()=>{ if(para.length){ const text=para.join(" ").trim(); const h=inlineMd(text);
+      blocks.push(hasFmt(h)?{type:"raw",text:"<p>"+h+"</p>"}:{type:"p",text:text}); para=[]; } };
+  const flushList=()=>{ if(list&&list.length){ const any=list.some(it=>hasFmt(inlineMd(it)));
+      blocks.push(any?{type:"raw",text:"<ul>"+list.map(it=>"<li>"+inlineMd(it)+"</li>").join("")+"</ul>"}:{type:"ul",items:list.slice()}); list=null; } };
+  for(const raw of lines){
+    const t=raw.trim();
+    if(!t){ flushPara(); flushList(); continue; }
+    const h=t.match(/^(#{1,6})\s+(.*)$/), li=t.match(/^([-*+]|\d+[.)])\s+(.*)$/);
+    if(h){ flushPara(); flushList(); blocks.push({type:"subhead",text:h[2].replace(/\*\*|__|\*|_|`/g,"").trim()}); }
+    else if(li){ flushPara(); (list||(list=[])).push(li[2].trim()); }
+    else { flushList(); para.push(t); }
+  }
+  flushPara(); flushList();
+  return blocks;
+}
+const SEC_ALIASES={
+  abstract:["résumé","resume","abstract","summary","accroche"],
+  contexte:["contexte","context","objectif","objective"],
+  role:["rôle","role","responsab","mission"],
+  deroulement:["déroulement","deroulement","mise en œuvre","mise en oeuvre","process","implement","implément","méthode","methode","method","démarche","demarche"],
+  resultats:["résultat","resultat","result","bilan","impact"]
+};
+function matchSection(title){const t=title.toLowerCase().trim();for(const k in SEC_ALIASES){if(SEC_ALIASES[k].some(a=>t.includes(a)))return k;}return null;}
+function splitMarkdownProject(md){
+  const lines=(md||"").replace(/\r\n?/g,"\n").split("\n");
+  let title="",h1=false; const chunks=[]; let cur={key:"abstract",lines:[]};
+  for(const raw of lines){
+    const t=raw.trim(); const m1=t.match(/^#\s+(.*)$/), m2=t.match(/^##\s+(.*)$/);
+    if(m1&&!h1){title=m1[1].replace(/\*\*|__|\*|_|`/g,"").trim();h1=true;continue;}
+    if(m2){ if(cur.lines.join("").trim())chunks.push(cur); cur={key:matchSection(m2[1])||"contexte",lines:[]}; continue; }
+    cur.lines.push(raw);
+  }
+  if(cur.lines.join("").trim())chunks.push(cur);
+  const secMd={}; chunks.forEach(c=>{secMd[c.key]=(secMd[c.key]?secMd[c.key]+"\n\n":"")+c.lines.join("\n");});
+  return {title,secMd};
+}
+
+/* ===================== small utilities ===================== */
+const ui={html:{},paste:{}};   // keyed by "secKey-lang"
+function pickFile(accept,cb){const i=el("input",{type:"file",accept,style:"display:none"});
+  i.addEventListener("change",()=>{const f=i.files[0];if(f){const r=new FileReader();r.onload=()=>cb(r.result);r.readAsText(f);}i.remove();});
+  document.body.append(i);i.click();}
+function importSectionMd(secKey,lang,md,replace){
+  const blocks=mdToBlocks(md); const arr=app.projects[app.sel].sections[secKey][lang];
+  if(replace) app.projects[app.sel].sections[secKey][lang]=blocks; else arr.push(...blocks);
+  renderSection(secKey,lang); save(); toast(blocks.length+" bloc(s) importé(s)");
+}
+function doImportMd(secKey,lang,md){
+  if(!md||!md.trim())return;
+  const arr=app.projects[app.sel].sections[secKey][lang];
+  const replace = arr.length? confirm("Remplacer le contenu existant de cette section ?\n\nOK = remplacer · Annuler = ajouter à la suite") : true;
+  importSectionMd(secKey,lang,md,replace);
+}
+function importMarkdownProject(md){
+  const {title,secMd}=splitMarkdownProject(md);
+  const p=emptyProject(); p.sortDate=new Date().toISOString().slice(0,7);
+  p.title.fr=title; p.id=slug(title);
+  for(const k in secMd){ if(p.sections[k]) p.sections[k].fr=mdToBlocks(secMd[k]); }
+  app.projects.unshift(p); app.sel=0; render(); save();
+  toast("Projet créé depuis le Markdown (FR) — complétez les champs restants");
+}
+function refreshHtml(secKey,lang){const pre=$("#htmlbrut-"+secKey+"-"+lang);if(pre)pre.textContent=blocksToHTML(app.projects[app.sel].sections[secKey][lang])||"(vide)";}
+
+/* ===================== model (normalized) ===================== */
+function emptyProject(){
+  const sec={};SECTIONS.forEach(([k])=>sec[k]={fr:[],en:[]});
+  return {id:"",sortDate:"",image:"",pinned:false,title:{fr:"",en:""},dateRange:{fr:"",en:""},
+          sections:sec,tags:[],ressources:[]};
+}
+function fromJSON(p){
+  const m=emptyProject();
+  m.id=p.id||""; m.sortDate=p.sortDate||""; m.image=p.image||"";
+  m.pinned=p.pinned||false;
+  m.title={fr:p.title||"",en:p.title_en||""};
+  m.dateRange={fr:p.dateRange||"",en:p.dateRange_en||""};
+  SECTIONS.forEach(([k])=>{m.sections[k]={fr:htmlToBlocks(p[k]),en:htmlToBlocks(p[k+"_en"])};});
+  const tf=p.tags||[],te=p.tags_en||[];const n=Math.max(tf.length,te.length);
+  for(let i=0;i<n;i++)m.tags.push({fr:tf[i]||"",en:te[i]||""});
+  (p.ressources||[]).forEach(r=>m.ressources.push({label:r.label||"",label_en:r.label_en||"",url:r.url||""}));
+  return m;
+}
+function toJSON(m){
+  const o={};
+  o.id=m.id; o.sortDate=m.sortDate; o.image=m.image;
+  if(m.pinned) o.pinned=true;
+  o.title=m.title.fr; o.title_en=m.title.en;
+  o.dateRange=m.dateRange.fr; o.dateRange_en=m.dateRange.en;
+  SECTIONS.forEach(([k])=>{
+    const fr=blocksToHTML(m.sections[k].fr), en=blocksToHTML(m.sections[k].en);
+    if(fr||k==="abstract")o[k]=fr;
+    if(en||k==="abstract")o[k+"_en"]=en;
+  });
+  const res=m.ressources.filter(r=>r.label||r.url||r.label_en);
+  o.ressources=res.map(r=>{const x={label:r.label};if(r.label_en)x.label_en=r.label_en;x.url=r.url;return x;});
+  o.tags=m.tags.map(t=>t.fr).filter(Boolean);
+  o.tags_en=m.tags.map(t=>t.en||t.fr).filter(Boolean);
+  return o;
+}
+
+/* ===================== app state ===================== */
+const app={projects:[],sel:0};
+const LS="alp-project-editor-v1";
+function save(){try{localStorage.setItem(LS,JSON.stringify(app.projects));$("#saveState").textContent="enregistré ✓ "+new Date().toLocaleTimeString();}catch(e){$("#saveState").textContent="(sauvegarde locale indisponible)";}}
+function load(){try{const r=localStorage.getItem(LS);if(r){app.projects=JSON.parse(r);return true;}}catch(e){}return false;}
+
+/* ===================== rendering ===================== */
+function renderSidebar(){
+  const list=$("#plist");list.innerHTML="";
+  app.projects.forEach((p,i)=>{
+    const card=el("div",{class:"pcard"+(i===app.sel?" sel":""),draggable:"true",
+      onclick:()=>{app.sel=i;render();},
+      ondragstart:e=>{e.dataTransfer.setData("text/plain",i);card.classList.add("drag");},
+      ondragend:()=>card.classList.remove("drag"),
+      ondragover:e=>e.preventDefault(),
+      ondrop:e=>{e.preventDefault();const from=+e.dataTransfer.getData("text/plain");moveProject(from,i);}},
+      el("span",{class:"grip",title:"Glisser pour réordonner"},"⠿"),
+      el("div",{},
+        el("div",{class:"pt"},
+          p.pinned?el("span",{class:"pin-dot",title:"Épinglé"},"📌 "):"",
+          p.title.fr||p.title.en||"(sans titre)"),
+        el("div",{class:"pm"},(p.sortDate||"—")+" · "+(p.tags.length?p.tags.length+" tag"+(p.tags.length>1?"s":""):"0 tag"))
+      )
+    );
+    list.append(card);
+  });
+}
+function moveProject(from,to){if(from===to)return;const a=app.projects;const[m]=a.splice(from,1);a.splice(to,0,m);app.sel=to;render();}
+
+function auto(t){t.style.height="auto";t.style.height=(t.scrollHeight+2)+"px";}
+function textarea(val,oninput,rows=2){const t=el("textarea",{rows,oninput:e=>{oninput(e.target.value);auto(t);}});t.value=val||"";requestAnimationFrame(()=>auto(t));return t;}
+
+function blockEditor(secKey,lang){
+  const m=app.projects[app.sel];const arr=m.sections[secKey][lang];
+  const uiKey=secKey+"-"+lang;
+  const wrap=el("div",{class:"blocks"});
+  arr.forEach((b,idx)=>{
+    const head=el("div",{class:"bhead"},
+      el("span",{class:"btype",html:ICON[b.type]+" "+({p:"Paragraphe",subhead:"Sous-titre",ul:"Liste à puces",raw:"HTML brut"}[b.type])}),
+      el("button",{class:"btn icon sm",title:"Monter",onclick:()=>{if(idx>0){[arr[idx-1],arr[idx]]=[arr[idx],arr[idx-1]];renderSection(secKey,lang);save();}}},"↑"),
+      el("button",{class:"btn icon sm",title:"Descendre",onclick:()=>{if(idx<arr.length-1){[arr[idx+1],arr[idx]]=[arr[idx],arr[idx+1]];renderSection(secKey,lang);save();}}},"↓"),
+      el("button",{class:"btn icon sm danger",title:"Supprimer",onclick:()=>{arr.splice(idx,1);renderSection(secKey,lang);save();}},"✕")
+    );
+    let editor;
+    if(b.type==="ul"){
+      editor=textarea((b.items||[]).join("\n"),v=>{b.items=v.split("\n");save();refreshHtml(secKey,lang);},3);
+      editor.placeholder="Un élément par ligne";
+    }else{
+      editor=textarea(b.text,v=>{b.text=v;save();refreshHtml(secKey,lang);},b.type==="subhead"?1:2);
+      editor.placeholder=b.type==="raw"?"<p>HTML libre…</p>":(b.type==="subhead"?"Titre de sous-section":"Votre texte…");
+    }
+    wrap.append(el("div",{class:"block "+b.type},head,editor));
+  });
+  const add=el("div",{class:"addblock"},
+    el("button",{class:"btn sm",html:ICON.p+" Paragraphe",onclick:()=>addBlock(secKey,lang,{type:"p",text:""})}),
+    el("button",{class:"btn sm",html:ICON.subhead+" Sous-titre",onclick:()=>addBlock(secKey,lang,{type:"subhead",text:""})}),
+    el("button",{class:"btn sm",html:ICON.ul+" Liste",onclick:()=>addBlock(secKey,lang,{type:"ul",items:[""]})}),
+    el("button",{class:"btn sm",html:ICON.raw+" HTML",onclick:()=>addBlock(secKey,lang,{type:"raw",text:""})})
+  );
+
+  const tool=el("div",{class:"sectool"},
+    el("button",{class:"btn sm",title:"Importer un fichier .md dans cette colonne",onclick:()=>pickFile(".md,.markdown,.txt,text/markdown,text/plain",txt=>doImportMd(secKey,lang,txt))},"⬇ Importer .md"),
+    el("button",{class:"btn sm",onclick:()=>{ui.paste[uiKey]=!ui.paste[uiKey];renderSection(secKey,lang);}}, ui.paste[uiKey]?"× Fermer le collage":"📋 Coller du Markdown"),
+    el("button",{class:"btn sm",onclick:()=>{ui.html[uiKey]=!ui.html[uiKey];renderSection(secKey,lang);}}, ui.html[uiKey]?"× Masquer le HTML":"</> Voir le HTML")
+  );
+
+  let pasteBox="";
+  if(ui.paste[uiKey]){
+    const ta=el("textarea",{class:"mdpaste",rows:5,placeholder:"# Titre (ignoré ici)\n\n## Sous-titre\n\nUn paragraphe avec du **gras**.\n\n- premier point"});
+    const ins=el("button",{class:"btn sm primary",onclick:()=>{doImportMd(secKey,lang,ta.value);ui.paste[uiKey]=false;renderSection(secKey,lang);}},"Insérer");
+    pasteBox=el("div",{class:"mdpastebox"},ta,el("div",{style:"margin-top:6px"},ins));
+  }
+
+  let htmlBox="";
+  if(ui.html[uiKey]){
+    const copy=el("button",{class:"btn sm",onclick:()=>{const h=blocksToHTML(arr);if(navigator.clipboard){navigator.clipboard.writeText(h);toast("HTML copié");}}},"⧉ Copier");
+    htmlBox=el("div",{class:"htmlbox"},
+      el("div",{class:"htmlbar"},el("span",{class:"flbl",style:"margin:0"},"HTML généré"),copy),
+      el("pre",{class:"htmlbrut",id:"htmlbrut-"+secKey+"-"+lang},blocksToHTML(arr)||"(vide)"));
+  }
+
+  const langLabel=el("div",{class:"lang-col-label"},lang.toUpperCase());
+  return el("div",{id:"sec-"+secKey+"-"+lang},langLabel,tool,pasteBox,wrap,add,htmlBox);
+}
+function addBlock(secKey,lang,b){app.projects[app.sel].sections[secKey][lang].push(b);renderSection(secKey,lang);save();}
+function renderSection(secKey,lang){const old=$("#sec-"+secKey+"-"+lang);if(old)old.replaceWith(blockEditor(secKey,lang));}
+
+function tagEditor(){
+  const m=app.projects[app.sel];
+  const box=el("div",{class:"taglist"});
+  m.tags.forEach((t,i)=>{
+    box.append(el("div",{class:"tagrow"},
+      (()=>{const inp=el("input",{type:"text",placeholder:"Tag (FR)",oninput:e=>{t.fr=e.target.value;save();renderSidebar();}});inp.value=t.fr;return inp;})(),
+      (()=>{const inp=el("input",{type:"text",placeholder:"Tag (EN)",oninput:e=>{t.en=e.target.value;save();}});inp.value=t.en;return inp;})(),
+      el("button",{class:"btn icon sm danger",onclick:()=>{m.tags.splice(i,1);renderTags();save();renderSidebar();}},"✕")
+    ));
+  });
+  const add=el("button",{class:"btn sm",style:"margin-top:8px",onclick:()=>{m.tags.push({fr:"",en:""});renderTags();save();}},"＋ Ajouter un tag");
+  return el("div",{id:"tagbox"},box,add);
+}
+function renderTags(){const o=$("#tagbox");if(o)o.replaceWith(tagEditor());}
+
+function resEditor(){
+  const m=app.projects[app.sel];
+  const box=el("div",{class:"reslist"});
+  m.ressources.forEach((r,i)=>{
+    box.append(el("div",{class:"resrow"},
+      (()=>{const x=el("input",{type:"text",placeholder:"Libellé (FR)",oninput:e=>{r.label=e.target.value;save();}});x.value=r.label;return x;})(),
+      (()=>{const x=el("input",{type:"text",placeholder:"Libellé (EN)",oninput:e=>{r.label_en=e.target.value;save();}});x.value=r.label_en;return x;})(),
+      (()=>{const x=el("input",{type:"url",placeholder:"https://…",oninput:e=>{r.url=e.target.value;save();}});x.value=r.url;return x;})(),
+      el("button",{class:"btn icon sm danger",onclick:()=>{m.ressources.splice(i,1);renderRes();save();}},"✕")
+    ));
+  });
+  const add=el("button",{class:"btn sm",style:"margin-top:8px",onclick:()=>{m.ressources.push({label:"",label_en:"",url:""});renderRes();save();}},"＋ Ajouter une ressource");
+  return el("div",{id:"resbox"},box,add);
+}
+function renderRes(){const o=$("#resbox");if(o)o.replaceWith(resEditor());}
+
+function field(labelTxt,key,sub,opts={}){
+  const m=app.projects[app.sel];
+  const inp=el("input",{type:opts.type||"text",placeholder:opts.ph||""});
+  inp.value = opts.get? opts.get(m) : (m[key]||"");
+  inp.addEventListener("input",e=>{(opts.set?opts.set(m,e.target.value):(m[key]=e.target.value));save();if(opts.reflectSidebar)renderSidebar();if(opts.thumb)$("#thumb").src=m.image||"";});
+  return el("label",{class:"field"},el("span",{},labelTxt),inp,sub?el("div",{class:"hint"},sub):"");
+}
+
+function render(){
+  renderSidebar();
+  const panel=$("#panel");panel.innerHTML="";
+  if(!app.projects.length){
+    panel.append(el("div",{class:"empty"},
+      el("div",{style:"font-size:2rem"},"🗂️"),
+      el("div",{},"Aucun projet pour l'instant."),
+      el("button",{class:"btn primary",onclick:addProject},"＋ Créer un premier projet"),
+      el("div",{class:"hint"},"…ou 'Importer projects.json' pour repartir de votre fichier existant.")));
+    return;
+  }
+  if(app.sel>=app.projects.length)app.sel=app.projects.length-1;
+  const m=app.projects[app.sel];
+
+  // ── header: project title + pin toggle ──
+  const pinBtn=el("button",{
+    class:"btn"+(m.pinned?" gold":""),
+    onclick:()=>{m.pinned=!m.pinned;renderSidebar();
+      // update button in place
+      pinBtn.className="btn"+(m.pinned?" gold":"");
+      pinBtn.textContent=m.pinned?"📌 Épinglé":"📌 Épingler";
+      save();}
+  },m.pinned?"📌 Épinglé":"📌 Épingler");
+
+  panel.append(el("div",{class:"row",style:"justify-content:space-between;align-items:flex-start;margin-bottom:18px"},
+    el("div",{},
+      el("div",{class:"flbl"},"Projet sélectionné"),
+      el("div",{style:"font-weight:800;font-size:1.2rem;color:var(--plum-ink)"},m.title.fr||m.title.en||"(sans titre)")),
+    pinBtn
+  ));
+
+  // ── Informations ──
+  const idField=field("Identifiant (slug, sert au nom de fichier)","id",
+    "Lettres minuscules, chiffres et tirets. Ex. agora-des-sciences",{reflectSidebar:false});
+  const genId=el("button",{class:"btn sm",style:"margin-bottom:13px",onclick:()=>{m.id=slug(m.title.fr||m.title.en);render();save();}},"⟳ Générer depuis le titre FR");
+  const idImg=el("img",{class:"thumb",id:"thumb",src:m.image||"",alt:"",onerror:function(){this.style.visibility="hidden";},onload:function(){this.style.visibility="visible";}});
+
+  panel.append(
+    el("fieldset",{},el("legend",{},"Informations"),
+      el("div",{class:"grid2"},
+        el("div",{},idField,genId),
+        field("Date de tri","sortDate","Sert au classement (le plus récent en premier).",{type:"month"})
+      ),
+      el("div",{class:"grid2"},
+        field("Titre FR","_tfr","",{get:x=>x.title.fr,set:(x,v)=>{x.title.fr=v;},reflectSidebar:true,ph:"Titre du projet"}),
+        field("Titre EN","_ten","",{get:x=>x.title.en,set:(x,v)=>x.title.en=v,reflectSidebar:false,ph:"Project title"})
+      ),
+      el("div",{class:"grid2"},
+        field("Période FR","_dfr","Ex. « Février 2026 – Juillet 2026 »",{get:x=>x.dateRange.fr,set:(x,v)=>x.dateRange.fr=v}),
+        field("Période EN","_den","Ex. « February 2026 – July 2026 »",{get:x=>x.dateRange.en,set:(x,v)=>x.dateRange.en=v})
+      ),
+      el("label",{class:"field"},el("span",{},"Image (chemin ou URL)"),
+        el("div",{class:"row"},idImg,
+          (()=>{const x=el("input",{type:"text",placeholder:"../assets/mon-image.webp ou https://…",oninput:e=>{m.image=e.target.value;$("#thumb").src=e.target.value;save();}});x.value=m.image;return x;})()
+        ),
+        el("div",{class:"hint",html:"Mettez vos images dans le dossier <b>assets/</b> et référencez-les par <b>../assets/nom.webp</b> (comme vos projets actuels)."})
+      )
+    )
+  );
+
+  // ── Tags + Resources ──
+  panel.append(el("fieldset",{},el("legend",{},"Tags (bilingues, alignés FR ↔ EN)"),tagEditor()));
+  panel.append(el("fieldset",{},el("legend",{},"Ressources (liens)"),resEditor()));
+
+  // ── Sections — FR | EN side by side ──
+  SECTIONS.forEach(([k,label,hint])=>{
+    panel.append(el("fieldset",{},
+      el("legend",{},label),
+      hint?el("div",{class:"hint",style:"margin:-4px 0 9px"},hint):"",
+      el("div",{class:"bilingual-grid"},
+        blockEditor(k,"fr"),
+        blockEditor(k,"en")
+      )
+    ));
+  });
+
+  // ── JSON viewer ──
+  const pre=el("pre",{class:"json"},JSON.stringify(toJSON(m),null,2));
+  const adv=el("details",{class:"adv"},el("summary",{},"Voir le JSON de ce projet (lecture seule)"),pre);
+  adv.addEventListener("toggle",()=>{if(adv.open)pre.textContent=JSON.stringify(toJSON(m),null,2);});
+  panel.append(adv);
+
+  // ── Actions ──
+  panel.append(el("div",{class:"row",style:"justify-content:flex-end;gap:10px;margin-top:18px"},
+    el("button",{class:"btn",onclick:duplicateProject},"⧉ Dupliquer"),
+    el("button",{class:"btn danger",onclick:deleteProject},"🗑 Supprimer ce projet")
+  ));
+}
+
+/* ===================== actions ===================== */
+function addProject(){const p=emptyProject();p.sortDate=new Date().toISOString().slice(0,7);app.projects.unshift(p);app.sel=0;render();save();}
+function duplicateProject(){const c=JSON.parse(JSON.stringify(app.projects[app.sel]));c.id=(c.id||"projet")+"-copie";app.projects.splice(app.sel+1,0,c);app.sel++;render();save();toast("Projet dupliqué");}
+function deleteProject(){if(!confirm("Supprimer définitivement ce projet ?"))return;app.projects.splice(app.sel,1);app.sel=Math.max(0,app.sel-1);render();save();}
+
+$("#addProj").addEventListener("click",addProject);
+$("#newBtn").addEventListener("click",()=>{if(app.projects.length&&!confirm("Vider l'éditeur et recommencer à zéro ? (Pensez à exporter d'abord.)"))return;app.projects=[];app.sel=0;render();save();});
+
+$("#exportBtn").addEventListener("click",()=>{
+  const errs=[];
+  app.projects.forEach((m,i)=>{if(!m.id)errs.push("Projet #"+(i+1)+" : identifiant manquant.");if(!m.title.fr&&!m.title.en)errs.push("Projet #"+(i+1)+" : titre manquant.");});
+  const ids=app.projects.map(m=>m.id);const dup=ids.filter((x,i)=>x&&ids.indexOf(x)!==i);
+  if(dup.length)errs.push("Identifiants en double : "+[...new Set(dup)].join(", "));
+  if(errs.length&&!confirm("Attention :\n\n"+errs.join("\n")+"\n\nExporter quand même ?"))return;
+  const data=app.projects.map(toJSON);
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=el("a",{href:URL.createObjectURL(blob),download:"projects.json"});document.body.append(a);a.click();a.remove();
+  toast("projects.json exporté — placez-le dans data/ puis lancez build.py");
+});
+
+$("#importFile").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const arr=JSON.parse(r.result);if(!Array.isArray(arr))throw 0;app.projects=arr.map(fromJSON);app.sel=0;render();save();toast(arr.length+" projet(s) importé(s)");}catch(err){alert("Fichier JSON invalide.");}};
+  r.readAsText(f);e.target.value="";
+});
+
+$("#importMd").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>importMarkdownProject(r.result);
+  r.readAsText(f);e.target.value="";
+});
+
+/* ===================== boot ===================== */
+if(!load())app.projects=[];
+render();
+</script>
+</body>
+</html>
