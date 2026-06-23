@@ -486,6 +486,8 @@ p, .lead-p, .abstract, .proj-section li, .blog-intro, .tl-item .desc, details.ex
 
 /* ===================== mobile polish ===================== */
 @media (max-width: 640px) {
+  .wrap { padding-left: 24px; padding-right: 24px; }
+  .section { padding-top: 44px; padding-bottom: 44px; }
   .page-head { padding-top: 88px; padding-bottom: 34px; }
   .hero .wrap { padding-top: 72px; padding-bottom: 48px; }
   .stats { flex-direction: column; }
