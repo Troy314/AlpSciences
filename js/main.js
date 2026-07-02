@@ -2,19 +2,6 @@
 (function () {
   "use strict";
 
-  /* ---- mobile nav ---- */
-  const burger = document.querySelector(".burger");
-  const links = document.querySelector(".nav-links");
-  if (burger && links) {
-    burger.addEventListener("click", () => {
-      links.classList.toggle("open");
-      burger.classList.toggle("x");
-    });
-    links.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => links.classList.remove("open"))
-    );
-  }
-
   /* ---- scroll reveal ---- */
   const io = new IntersectionObserver(
     (entries) => {
@@ -73,7 +60,4 @@
       }
     });
   }
-
-  /* ---- footer year ---- */
-  document.querySelectorAll(".js-year").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();
