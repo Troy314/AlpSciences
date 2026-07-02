@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Alp&#x27;Sciences</title>
+<meta name="description" content="Blog posts by Hector Pillot on science, mediation and mountains.">
+<link rel="canonical" href="https://alpsciences.com/en/blog/">
+<meta property="og:url" content="https://alpsciences.com/en/blog/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog — Alp&#x27;Sciences">
+<meta property="og:site_name" content="Alp'Sciences">
+<meta property="og:description" content="Blog posts by Hector Pillot on science, mediation and mountains.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../../assets/mark-dark.svg">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<div class="contour"></div>
+<div data-include="header"></div>
+<main>
+  <div class="wrap page-head">
+    <span class="section-tag">Blog</span>
+    <h1 class="head" style="font-size:clamp(2.4rem,5vw,3.6rem)">Thoughts from the field.</h1>
+    <p class="blog-intro" style="margin-top:20px">Blog posts about science, mountains and science communication &mdash; written as ideas come.</p>
+  </div>
+  <div class="wrap" style="padding-top:0">
+    <div class="tagbar" style="margin:6px 0 28px">
+    <button class="tag-chip active" data-cat="">All <span class="tc-n">3</span></button>
+    <button class="tag-chip" data-cat="Biologie">Biologie <span class="tc-n">1</span></button>
+    <button class="tag-chip" data-cat="Sociologie">Sociologie <span class="tc-n">1</span></button>
+    <button class="tag-chip" data-cat="Thermodynamique">Thermodynamique <span class="tc-n">1</span></button>
+    </div>
+  </div>
+  <section class="wrap section" style="padding-top:0">
+    <div class="blog-grid">
+  <article class="blog-card reveal-up" data-cat="Biologie">
+    <a class="blog-card-imgwrap" href="leopard-d-arabie/">
+      <img class="blog-card-img" src="../../assets/blog/leopard.webp" alt="Arabian Leopard" loading="lazy" decoding="async">
+      <div class="blog-card-overlay">
+        <span class="blog-card-date">February 2026</span>
+        <h3 class="blog-card-title">Arabian Leopard</h3>
+        <span class="blog-card-tag">Biologie</span>
+      </div>
+    </a>
+  </article>
+  <article class="blog-card reveal-up" data-cat="Sociologie">
+    <a class="blog-card-imgwrap" href="effet-mathilda/">
+      <img class="blog-card-img" src="../../assets/blog/matilda.webp" alt="The Mathilda Effect" loading="lazy" decoding="async">
+      <div class="blog-card-overlay">
+        <span class="blog-card-date">February 2026</span>
+        <h3 class="blog-card-title">The Mathilda Effect</h3>
+        <span class="blog-card-tag">Sociologie</span>
+      </div>
+    </a>
+  </article>
+  <article class="blog-card reveal-up" data-cat="Thermodynamique">
+    <a class="blog-card-imgwrap" href="hydrocerames/">
+      <img class="blog-card-img" src="../../assets/blog/hydrocerame.webp" alt="Les hydrocérames, ces vases qui suent" loading="lazy" decoding="async">
+      <div class="blog-card-overlay">
+        <span class="blog-card-date">December 2025</span>
+        <h3 class="blog-card-title">Les hydrocérames, ces vases qui suent</h3>
+        <span class="blog-card-tag">Thermodynamique</span>
+      </div>
+    </a>
+  </article>
+    </div>
+  </section>
+  <script>
+  (function(){var cards=document.querySelectorAll(".blog-card");var chips=document.querySelectorAll(".tagbar .tag-chip");function filter(cat){cards.forEach(function(c){c.style.display=(!cat||c.dataset.cat===cat)?"":"none";});chips.forEach(function(c){c.classList.toggle("active",(c.dataset.cat||"")===cat);});cards.forEach(function(c){if(c.style.display!=="none")c.classList.add("in");});}chips.forEach(function(c){c.addEventListener("click",function(){filter(c.dataset.cat||"");});});var q=new URLSearchParams(location.search).get("cat");if(q)filter(q);})();
+  </script>
+</main>
+<div data-include="footer"></div>
+
+<script src="../../js/include.js"></script>
+<script src="../../js/main.js"></script>
+</body>
+</html>

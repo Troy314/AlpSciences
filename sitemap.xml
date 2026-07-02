@@ -6,162 +6,162 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/blog.html</loc>
+    <loc>https://alpsciences.com/blog/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/cv.html</loc>
+    <loc>https://alpsciences.com/cv/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projets.html</loc>
+    <loc>https://alpsciences.com/projets/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/contact.html</loc>
+    <loc>https://alpsciences.com/contact/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/mentions-legales.html</loc>
+    <loc>https://alpsciences.com/mentions-legales/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/index.html</loc>
+    <loc>https://alpsciences.com/en/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/blog.html</loc>
+    <loc>https://alpsciences.com/en/blog/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/cv.html</loc>
+    <loc>https://alpsciences.com/en/cv/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/projects.html</loc>
+    <loc>https://alpsciences.com/en/projects/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/contact.html</loc>
+    <loc>https://alpsciences.com/en/contact/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-agora-des-sciences.html</loc>
+    <loc>https://alpsciences.com/projets/agora-des-sciences/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-agora-des-sciences.html</loc>
+    <loc>https://alpsciences.com/en/projects/agora-des-sciences/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-toile-de-relativite.html</loc>
+    <loc>https://alpsciences.com/projets/toile-de-relativite/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-toile-de-relativite.html</loc>
+    <loc>https://alpsciences.com/en/projects/toile-de-relativite/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-webzine-serotine.html</loc>
+    <loc>https://alpsciences.com/projets/webzine-serotine/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-webzine-serotine.html</loc>
+    <loc>https://alpsciences.com/en/projects/webzine-serotine/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-ippog-resources-portal.html</loc>
+    <loc>https://alpsciences.com/projets/ippog-resources-portal/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-ippog-resources-portal.html</loc>
+    <loc>https://alpsciences.com/en/projects/ippog-resources-portal/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-memoire_csti.html</loc>
+    <loc>https://alpsciences.com/projets/memoire_csti/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-memoire_csti.html</loc>
+    <loc>https://alpsciences.com/en/projects/memoire_csti/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-malette-du-petit-sceptique.html</loc>
+    <loc>https://alpsciences.com/projets/malette-du-petit-sceptique/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-malette-du-petit-sceptique.html</loc>
+    <loc>https://alpsciences.com/en/projects/malette-du-petit-sceptique/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-cern-science-gateway.html</loc>
+    <loc>https://alpsciences.com/projets/cern-science-gateway/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-cern-science-gateway.html</loc>
+    <loc>https://alpsciences.com/en/projects/cern-science-gateway/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/projet-esww24-meteo-espace.html</loc>
+    <loc>https://alpsciences.com/projets/esww24-meteo-espace/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/project-esww24-meteo-espace.html</loc>
+    <loc>https://alpsciences.com/en/projects/esww24-meteo-espace/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/billet-leopard-d-arabie.html</loc>
+    <loc>https://alpsciences.com/blog/leopard-d-arabie/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/post-leopard-d-arabie.html</loc>
+    <loc>https://alpsciences.com/en/blog/leopard-d-arabie/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/billet-effet-mathilda.html</loc>
+    <loc>https://alpsciences.com/blog/effet-mathilda/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/post-effet-mathilda.html</loc>
+    <loc>https://alpsciences.com/en/blog/effet-mathilda/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/billet-hydrocerames.html</loc>
+    <loc>https://alpsciences.com/blog/hydrocerames/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alpsciences.com/en/post-hydrocerames.html</loc>
+    <loc>https://alpsciences.com/en/blog/hydrocerames/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

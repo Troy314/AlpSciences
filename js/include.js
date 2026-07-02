@@ -2,38 +2,66 @@
 (function () {
   "use strict";
 
-  function altLangHref(pathname) {
-    const isEn = /(^|\/)en\//.test(pathname);
-    const file = pathname.split("/").pop() || "index.html";
-    if (isEn) {
-      if (file === "projects.html") return "../projets.html";
-      if (file === "legal-notice.html") return "../mentions-legales.html";
-      if (file.indexOf("post-") === 0) return "../billet-" + file.slice(5);
-      if (file.indexOf("project-") === 0) return "../projet-" + file.slice(8);
-      return "../" + file;
-    }
-    if (file === "projets.html") return "en/projects.html";
-    if (file === "mentions-legales.html") return "en/legal-notice.html";
-    if (file.indexOf("billet-") === 0) return "en/post-" + file.slice(7);
-    if (file.indexOf("projet-") === 0) return "en/project-" + file.slice(7);
-    return "en/" + file;
+  // Only the section name differs between languages; blog/cv/contact are the same word.
+  const MAP_TO_EN = { projets: "projects", "mentions-legales": "legal-notice" };
+  const MAP_TO_FR = { projects: "projets", "legal-notice": "mentions-legales" };
+
+  /** Parse the current path into { isEn, rest, depth }.
+   *  rest = path segments after the optional leading "en/" (e.g. [] for home,
+   *  ["cv"] for a top-level page, ["blog","hydrocerames"] for a detail page).
+   *  depth = number of "../" needed to reach the site root from this page. */
+  function pathInfo(pathname) {
+    const segs = pathname.split("/").filter(Boolean);
+    const isEn = segs[0] === "en";
+    const rest = isEn ? segs.slice(1) : segs;
+    const depth = (isEn ? 1 : 0) + rest.length;
+    return { isEn, rest, depth };
   }
 
-  function setLangLinks(root, isEn, selfFile) {
-    const otherHref = altLangHref(location.pathname);
+  /** Same-content page in the other language, relative to the current page. */
+  function altLangHref(info) {
+    const targetRest = info.rest.slice();
+    if (targetRest.length) {
+      const map = info.isEn ? MAP_TO_FR : MAP_TO_EN;
+      targetRest[0] = map[targetRest[0]] || targetRest[0];
+    }
+    const prefixSegs = info.isEn ? targetRest : ["en"].concat(targetRest);
+    return "../".repeat(info.depth) + prefixSegs.join("/") + (prefixSegs.length ? "/" : "");
+  }
+
+  function setLangLinks(root, info) {
+    const otherHref = altLangHref(info);
+    const selfHref = "./";
     root.querySelectorAll(".lang-fr").forEach((a) => {
-      a.href = isEn ? otherHref : selfFile;
-      a.classList.toggle("on", !isEn);
+      a.href = info.isEn ? otherHref : selfHref;
+      a.classList.toggle("on", !info.isEn);
     });
     root.querySelectorAll(".lang-en").forEach((a) => {
-      a.href = isEn ? selfFile : otherHref;
-      a.classList.toggle("on", isEn);
+      a.href = info.isEn ? selfHref : otherHref;
+      a.classList.toggle("on", info.isEn);
     });
   }
 
-  function markActive(root, selfFile) {
+  /** The header/footer partials assume they're injected at the language root
+   *  (hrefs like "blog/", "cv/"); on any nested page they need this many
+   *  "../" prepended to still reach those same folders. */
+  function navPrefix(info) {
+    return "../".repeat(info.rest.length);
+  }
+
+  function markActive(root, info) {
+    const target = info.rest.length ? info.rest[0] + "/" : "./";
     root.querySelectorAll(".nav-links > a[href]").forEach((a) => {
-      if (a.getAttribute("href") === selfFile) a.classList.add("active");
+      if (a.getAttribute("href") === target) a.classList.add("active");
+    });
+  }
+
+  function fixNavPrefix(root, pre) {
+    if (!pre) return;
+    root.querySelectorAll("a[href]:not(.lang-fr):not(.lang-en)").forEach((a) => {
+      const href = a.getAttribute("href");
+      if (/^([a-z][a-z0-9+.-]*:|#)/i.test(href)) return; // absolute URLs, mailto:, tel:, #anchors
+      a.setAttribute("href", pre + href);
     });
   }
 
@@ -63,10 +91,10 @@
     return node;
   }
 
-  const isEn = /(^|\/)en\//.test(location.pathname);
-  const selfFile = location.pathname.split("/").pop() || "index.html";
-  const base = isEn ? "../" : "";
-  const lang = isEn ? "en" : "fr";
+  const info = pathInfo(location.pathname);
+  const base = "../".repeat(info.depth);
+  const lang = info.isEn ? "en" : "fr";
+  const navPre = navPrefix(info);
 
   const headerPh = document.querySelector('[data-include="header"]');
   const footerPh = document.querySelector('[data-include="footer"]');
@@ -78,11 +106,13 @@
     const headerNode = headerHtml ? inject(headerPh, headerHtml) : null;
     const footerNode = footerHtml ? inject(footerPh, footerHtml) : null;
     if (headerNode) {
-      markActive(headerNode, selfFile);
-      setLangLinks(headerNode, isEn, selfFile);
+      markActive(headerNode, info);
+      fixNavPrefix(headerNode, navPre);
+      setLangLinks(headerNode, info);
     }
     if (footerNode) {
-      setLangLinks(footerNode, isEn, selfFile);
+      fixNavPrefix(footerNode, navPre);
+      setLangLinks(footerNode, info);
       fillYear();
     }
     wireBurger();

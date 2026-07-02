@@ -10,18 +10,30 @@ URL de production : **https://alpsciences.fr**
 
 ## Structure des pages
 
+Chaque page est un dossier avec son propre `index.html`, pour des URLs sans
+`.html` (ex. `/projets/agora-des-sciences/`). Seules la racine
+(`index.html` / `en/index.html`) et `404.html` restent des fichiers plats,
+comme l'exigent les hébergeurs statiques.
+
 | FR | EN | Description |
 |----|-----|-------------|
-| `index.html` | `en/index.html` | Accueil / Main (manuel, section blog auto-injectée) |
-| `blog.html` | `en/blog.html` | Blog — liste des articles (généré) |
-| `billet-<id>.html` | `en/post-<id>.html` | Page d'article (générée) |
-| `cv.html` | `en/cv.html` | CV & Portfolio (manuel) |
-| `projets.html` | `en/projects.html` | Projets — galerie + frise (généré) |
-| `projet-<id>.html` | `en/project-<id>.html` | Page de projet (générée) |
-| `contact.html` | `en/contact.html` | Contact (manuel) |
-| `mentions-legales.html` | `en/legal-notice.html` | Mentions légales (manuel) |
+| `index.html` (`/`) | `en/index.html` (`/en/`) | Accueil / Main (manuel, section blog auto-injectée) |
+| `blog/` | `en/blog/` | Blog — liste des articles (généré) |
+| `blog/<id>/` | `en/blog/<id>/` | Page d'article (générée) |
+| `cv/` | `en/cv/` | CV & Portfolio (manuel) |
+| `projets/` | `en/projects/` | Projets — galerie + frise (généré) |
+| `projets/<id>/` | `en/projects/<id>/` | Page de projet (générée) |
+| `contact/` | `en/contact/` | Contact (manuel) |
+| `mentions-legales/` | `en/legal-notice/` | Mentions légales (manuel) |
+| `404.html` | `en/404.html` | Page d'erreur (manuel, liens en chemins absolus) |
 | `sitemap.xml` | — | Sitemap SEO (généré) |
 | `robots.txt` | — | Robots SEO (manuel) |
+
+Le header et le footer ne sont pas dupliqués dans chaque page : ils vivent
+dans `partials/header-{fr,en}.html` et `partials/footer-{fr,en}.html`, et
+`js/include.js` les injecte au chargement de chaque page (met en évidence le
+lien actif, calcule les liens FR⇄EN et adapte le préfixe `../` selon la
+profondeur du dossier).
 
 ---
 
@@ -41,10 +53,10 @@ GitHub Pages n'exécute pas `build.py` — il sert le HTML statique déjà produ
 
 | Sortie | Source |
 |--------|--------|
-| `projets.html` + `en/projects.html` | `data/projects.json` |
-| `projet-<id>.html` + `en/project-<id>.html` | `data/projects.json` |
-| `blog.html` + `en/blog.html` | `data/posts.json` |
-| `billet-<id>.html` + `en/post-<id>.html` | `data/posts.json` |
+| `projets/` + `en/projects/` | `data/projects.json` |
+| `projets/<id>/` + `en/projects/<id>/` | `data/projects.json` |
+| `blog/` + `en/blog/` | `data/posts.json` |
+| `blog/<id>/` + `en/blog/<id>/` | `data/posts.json` |
 | Section « Articles récents » dans `index.html` / `en/index.html` | `data/posts.json` (3 plus récents) |
 | `sitemap.xml` | toutes les pages FR + EN |
 
@@ -141,7 +153,7 @@ Le filtre par tag fonctionne dans les deux vues. La préférence est sauvegardé
 - `<meta name="description">`, `<link rel="canonical">`, balises Open Graph sur toutes les pages générées
 - `sitemap.xml` généré automatiquement avec priorités et fréquences
 - `robots.txt` pointant vers le sitemap
-- `mentions-legales.html` / `en/legal-notice.html` marquées `noindex`
+- `mentions-legales/` / `en/legal-notice/` marquées `noindex`
 - URL de base : `https://alpsciences.fr` (variable `BASE_URL` dans `build.py`)
 
 ---
