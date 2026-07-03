@@ -4,16 +4,39 @@
 <svg
    version="1.1"
    id="svg538"
-   width="1149.0627"
-   height="626.96747"
-   viewBox="0 0 1149.0627 626.96747"
+   width="1155.2437"
+   height="1155.2437"
+   viewBox="0 0 1155.2436 1155.2437"
+   sodipodi:docname="mark-dark.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.29436116"
+     inkscape:cx="1358.8749"
+     inkscape:cy="621.68528"
+     inkscape:window-width="1296"
+     inkscape:window-height="699"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg538" />
   <defs
      id="defs542" />
   <g
      id="g546"
-     transform="matrix(1.3333333,0,0,1.3333333,0,1.7674187e-5)">
+     transform="matrix(1.3333333,0,0,1.3333333,3.0904542,264.13811)">
     <g
        id="g548">
       <path
@@ -26,4 +49,11 @@
          id="path552" />
     </g>
   </g>
+  <rect
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:10.1651;stroke-linecap:square;stroke-linejoin:round;paint-order:stroke fill markers"
+     id="rect291"
+     width="1155.2437"
+     height="1155.2437"
+     x="1.1871813e-07"
+     y="-7.3232877e-07" />
 </svg>
