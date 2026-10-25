@@ -51,12 +51,19 @@
 
   function markActive(root, info) {
     const target = info.rest.length ? info.rest[0] + "/" : "./";
-    root.querySelectorAll(".nav-links > a[href]").forEach((a) => {
-      if (a.getAttribute("href") === target) a.classList.add("active");
+    root.querySelectorAll(".nav-links > a[href], .site-nav a[href]").forEach((a) => {
+      if (a.getAttribute("href") === target) { a.classList.add("active"); a.setAttribute("aria-current", "page"); }
     });
   }
 
-  function fixNavPrefix(root, pre) {
+  function fixNavPrefix(root, pre, assetPre) {
+    if (assetPre) {
+      // redesign partials carry images (logo marks) with site-root-relative src
+      root.querySelectorAll("img[src]").forEach((im) => {
+        const src = im.getAttribute("src");
+        if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(src)) im.setAttribute("src", assetPre + src);
+      });
+    }
     if (!pre) return;
     root.querySelectorAll("a[href]:not(.lang-fr):not(.lang-en)").forEach((a) => {
       const href = a.getAttribute("href");
@@ -107,11 +114,11 @@
     const footerNode = footerHtml ? inject(footerPh, footerHtml) : null;
     if (headerNode) {
       markActive(headerNode, info);
-      fixNavPrefix(headerNode, navPre);
+      fixNavPrefix(headerNode, navPre, base);
       setLangLinks(headerNode, info);
     }
     if (footerNode) {
-      fixNavPrefix(footerNode, navPre);
+      fixNavPrefix(footerNode, navPre, base);
       setLangLinks(footerNode, info);
       fillYear();
     }
