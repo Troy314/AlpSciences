@@ -1,47 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-base="/">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="/assets/mark-dark.svg">
 <title>404 — Page not found — Alp'Sciences</title>
-<meta name="description" content="This page could not be found. It may have been carried away by His Noodly Appendage.">
+<meta name="description" content="Cette page est introuvable. Elle a peut-être été emportée par Son Appendice Nouillesque.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alp'Sciences">
+<meta property="og:title" content="404 — Page introuvable — Alp&#x27;Sciences">
+<meta property="og:url" content="https://alpsciences.com/404.html">
+<meta property="og:description" content="Cette page est introuvable. Elle a peut-être été emportée par Son Appendice Nouillesque.">
+<link rel="icon" type="image/svg+xml" href="/assets/mark-dark.svg">
+<script>try{var t=localStorage.getItem('alp-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,500;0,700;1,500&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
-<div class="contour"></div>
-
+<div class="page p404">
+<svg class="p404-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="600" cy="360" r="320" fill="none" stroke="#cbb8f5" stroke-opacity=".22"/><circle cx="880" cy="360" r="210" fill="none" stroke="#cbb8f5" stroke-opacity=".18"/><g fill="none" stroke-linecap="round" stroke-width="2"><path d="M880 360Q940 300 990 180" stroke="#f1cb48"/><path d="M880 360Q820 300 790 160" stroke="#cbb8f5"/><path d="M880 360Q970 380 1100 330" stroke="#b99bff"/><path d="M880 360Q790 410 680 390" stroke="#cbb8f5"/><path d="M880 360Q900 460 830 600" stroke="#f1cb48"/><path d="M880 360Q850 400 760 440" stroke="#b99bff" stroke-opacity=".7"/><path d="M880 360Q960 430 1040 560" stroke="#cbb8f5" stroke-opacity=".7"/><path d="M880 360Q880 280 920 120" stroke="#b99bff" stroke-opacity=".7"/></g><circle cx="880" cy="360" r="5" fill="#f1cb48"/></svg>
 <div data-include="header"></div>
-
-<main>
-  <div class="wrap page-head" style="text-align:center">
-    <span class="section-tag">Erreur 404</span>
-    <h1 class="head" style="font-size:clamp(2rem,5vw,3.2rem);max-width:none;margin-left:auto;margin-right:auto">Oops! This page doesn't exist!</h1>
-    <p class="lead-p" style="margin-top:22px;max-width:54ch;margin-left:auto;margin-right:auto">You've probably gotten lost between two dimensions…</p>
-  </div>
-
-  <section class="section" style="padding-top:0;text-align:center">
-    <div class="wrap">
-      <figure class="reveal-up" style="max-width:560px;margin:0 auto 44px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:6px solid var(--paper-pure)">
-        <img src="/assets/touched_by_his_noodly_appendage_hd.webp"
-             alt="Touched by His Noodly Appendage — parody of The Creation of Adam by Bobby Henderson"
-             style="width:100%;display:block" loading="eager" decoding="async">
-      </figure>
-      <div class="hero-cta reveal-up" style="justify-content:center">
-        <a class="btn btn-primary" href="/en/">Back to home <span class="arr">→</span></a>
-        <a class="btn btn-line" href="/en/projects/">See projects</a>
-        <a class="btn btn-line" href="/en/blog/">Read the blog</a>
-      </div>
-    </div>
-  </section>
+<main id="main">
+<div class="wrap"><div class="lost">
+<div class="mono" style="font-size:12px;color:#c9b0ff">Error 404</div>
+<h1>Oops! This page <em>doesn’t exist!</em></h1>
+<p class="s">You probably got lost between two dimensions…</p>
+<figure><img src="/assets/touched_by_his_noodly_appendage_hd.webp" alt="Touched by His Noodly Appendage — a parody of The Creation of Adam by Bobby Henderson"><figcaption>Figure 1 — Touched by His Noodly Appendage, a parody of The Creation of Adam by Bobby Henderson</figcaption></figure>
+<div class="acts"><a class="btn gold" href="/en/">Back to home →</a><a class="btn" href="/en/projects/">See the projects</a><a class="btn" href="/en/blog/">Read the blog</a></div>
+</div></div>
 </main>
-
 <div data-include="footer"></div>
-
+</div>
 <script src="/js/include.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/i18n-en.js"></script>
+<script src="/js/site.js"></script>
 </body>
 </html>

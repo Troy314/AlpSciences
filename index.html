@@ -1,193 +1,110 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-base="">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alp'Sciences — Hector Pillot, médiateur scientifique à Grenoble</title>
+<meta name="description" content="Portfolio et blog d'Hector Pillot, médiateur scientifique à Grenoble : ateliers, dispositifs de médiation et écriture scientifique, de l'infiniment petit aux sommets des Alpes.">
+<link rel="canonical" href="https://alpsciences.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alp'Sciences">
+<meta property="og:title" content="Alp'Sciences — Hector Pillot, médiateur scientifique à Grenoble">
+<meta property="og:description" content="De l'infiniment petit aux sommets des Alpes : médiation, écriture scientifique et physique des particules.">
+<meta property="og:url" content="https://alpsciences.com/">
+<meta property="og:image" content="https://alpsciences.com/assets/Mont_Blanc.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="assets/mark-dark.svg">
-<title>Alp'Sciences — Hector Pillot, médiation scientifique</title>
-<meta name="description" content="Bienvenue sur le site d'Hector Pillot, médiateur scientifique grenoblois spécialisé en physique et passionné de montagnes. Un blog et un portfolio.">
+<script>try{var t=localStorage.getItem('alp-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,500;0,700;1,500&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
-<div class="contour"></div>
-
+<div class="page">
+<canvas id="cloud" aria-hidden="true"></canvas>
+<div class="bg bg-contour" aria-hidden="true"></div>
 <div data-include="header"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg" style="background-image:url('../assets/Mont_Blanc.jpg')"></div>
-  <div class="particles"></div>
-  <div class="wrap">
-    <span class="hero-eyebrow">Médiation scientifique · Grenoble</span>
-    <h1>De l&rsquo;infiniment petit aux sommets des Alpes</h1>
-    <span class="tagline">« Moi c'est Hector — médiateur scientifique grenoblois, spécialisé dans la physique mais pas que ! Et passionné par les montagnes. »</span>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="cv/">Mon parcours <span class="arr">→</span></a>
-      <a class="btn btn-ghost" href="blog/">Voir le blog</a>
-    </div>
-  </div>
-</section>
-
-<!-- INTRO / ABOUT -->
-<section class="section">
-  <div class="wrap split rev">
-    <div class="reveal-up">
-      <span class="section-tag">À propos</span>
-      <h2 class="head">Partager ma passion des sciences.</h2>
-      <p class="lead-p" style="margin-top:22px">Après à un master de physique des particules, j'ai décidé de partager ma passion pour les sciences en suivant un master de communication scientifique. Ce site multitâche est à la fois un blog et un portfolio.</p>
-      <div class="soc-row">
-        <a href="mailto:hector.pillot@proton.me" aria-label="E-mail"><i class="soc soc-mail"></i></a>
-        <a href="https://www.linkedin.com/in/hector-pillot/fr" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="soc soc-linkedin"></i></a>
-        <a href="https://bsky.app/profile/hectorpillot.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><i class="soc soc-bluesky"></i></a>
-        <a href="https://www.instagram.com/troy_3.14/" target="_blank" rel="noopener" aria-label="Instagram"><i class="soc soc-instagram"></i></a>
+<main id="main">
+<div class="wrap">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-photo">
+      <div class="ruler" data-alt aria-hidden="true">
+        <span style="top:0">4 806</span><span style="top:25%">3 600</span><span style="top:50%">2 400</span><span style="top:75%">1 200</span><span style="bottom:0">214</span>
+        <i style="top:0"></i><i style="top:25%"></i><i style="top:50%"></i><i style="top:75%"></i><i style="bottom:0"></i>
       </div>
+      <figure>
+        <img src="assets/Mont_Blanc.webp" width="960" height="960" alt="Glacier et massif du Mont-Blanc sous un ciel bleu" fetchpriority="high">
+        <figcaption class="fig">Figure 1a — Massif du Mont-Blanc, 4 806 m — Grenoble, 214 m</figcaption>
+      </figure>
     </div>
-    <figure class="shot">
-    <div class="portrait reveal-up">
-      <img src="assets/Hector_PILLOT.jpg" alt="Hector Pillot en montagne" loading="lazy" decoding="async">
-    </div>
-    <figcaption class="credit">Crédit : Natan PILLOT</figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- SCIENCE IMAGE STRIP -->
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="strip reveal-up">
-      <figure class="shot"><img src="../assets/Plasma_globe.webp" alt="Sphère de plasma" loading="lazy" decoding="async"><figcaption class="credit">Crédit: Colin / Wikimedia Commons</figcaption></figure>
-      <figure class="shot"><img src="../assets/pexels-photo-1059161.webp" alt="Méduse" loading="lazy" decoding="async"><figcaption class="credit">Crédit : Willy Arisky</figcaption></figure>
-      <figure class="shot"><img src="../assets/pexels-photo-220989.webp" alt="Bulles d'eau" loading="lazy" decoding="async"><figcaption class="credit">Crédit : Pixabay</figcaption></figure>
-      <figure class="shot"><img src="../assets/solar-system-emergence-spitzer-telescope-telescope-41951.webp" alt="Protoétoile" loading="lazy" decoding="async"><figcaption class="credit">Crédit : NASA/JPL-Caltech</figcaption></figure>
-      <figure class="shot"><img src="../assets/cloudchamber.webp" alt="Chambre à brouillard" loading="lazy" decoding="async"><figcaption class="credit">Crédit : Nuledo</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- LA SCIENCE -->
-<section class="section" style="padding-top:0">
-  <div class="wrap" style="max-width:880px">
-    <span class="section-tag reveal-up">La science</span>
-    <h2 class="head reveal-up">Une source infinie d'émerveillement.</h2>
-    <p class="lead-p reveal-up" style="margin-top:20px">Passionné de sciences depuis tout petit, je suis tombé amoureux de la physique, de la minéralogie et des araignées&nbsp;! Pour moi, les sciences sont plus qu'une matière enseignée à l'école : c'est une méthode, une manière de voir le monde et d'envisager notre rapport aux autres. Il y a toujours de nouvelles choses à découvrir.</p>
-    <div class="hero-cta reveal-up" style="margin-top:24px">
-      <a class="btn btn-line" href="blog/">Jetez un coup d'œil au blog&nbsp;! <span class="arr">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- LA COMMUNICATION SCIENTIFIQUE -->
-<section class="section" style="padding-top:0">
-  <div class="wrap split">
-    <div class="reveal-up">
-      <span class="section-tag">La communication scientifique</span>
-      <h2 class="head">Transmettre, c'est avant tout échanger.</h2>
-      <p class="lead-p" style="margin-top:20px">La médiation m'a appris à voir les sciences d'un autre œil, à me mettre à la place des différents publics et à me demander comment transmettre au mieux ma passion. C'est un échange pendant lequel j'apprends autant que j'explique.</p>
-      <p class="lead-p" style="margin-top:20px">Je suis actuellement actif dans l'association de transmission des savoirs scientifiques : AurorAlpes.</p>
-      <a class="partner" href="https://www.canva.com/design/DAGBcHxrSmU/pbud_5JWLcK6IOBBBrVBHQ/view" target="_blank" rel="noopener">
-        <img src="../assets/auroralpes-logo.webp" alt="AurorAlpes" loading="lazy" decoding="async">
-        <span>Découvrez notre catalogue d'animations !</span>
-      </a>
-    </div>
-    <figure class="shot">
-    <div class="portrait reveal-up">
-      <img src="../assets/img_20240823_085659.webp" alt="Animation scientifique" loading="lazy" decoding="async">
-    </div>
-    <figcaption class="credit"></figcaption>
-    </figure>
-  </div>
-  <div class="wrap" style="margin-top:30px">
-    <div class="strip reveal-up">
-      <figure class="shot"><img src="../assets/img_20240823_085639.webp" alt="Médiation" loading="lazy" decoding="async"><figcaption class="credit"></figcaption></figure>
-      <figure class="shot"><img src="../assets/20240607_162700.webp" alt="Atelier" loading="lazy" decoding="async"><figcaption class="credit"></figcaption></figure>
-      <figure class="shot"><img src="../assets/img_8375.webp" alt="Médiation scientifique" loading="lazy" decoding="async"><figcaption class="credit"></figcaption></figure>
-      <figure class="shot"><img src="../assets/img_20231120_122640.webp" alt="Village des sciences" loading="lazy" decoding="async"><figcaption class="credit"></figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- LA PHYSIQUE DES PARTICULES -->
-<section class="section" style="padding-top:0">
-  <div class="wrap split rev">
-    <figure class="shot">
-    <a class="portrait no-ring reveal-up" href="https://cern70.cern/fr/les-particules-a-la-trace/" target="_blank" rel="noopener" style="display:block">
-      <img src="../assets/g25944tris.webp" alt="Les particules à la trace" loading="lazy" decoding="async">
-    </a>
-    <figcaption class="credit"></figcaption>
-    </figure>
-    <div class="reveal-up">
-      <span class="section-tag">La physique des particules</span>
-      <h2 class="head">Les briques élémentaires de la matière.</h2>
-      <p class="lead-p" style="margin-top:20px">Parmi toutes les sciences, la physique des particules est celle qui me fascine le plus : l'étude des constituants élémentaires de la matière et de leurs interactions.</p>
-      <p class="lead-p" style="margin-top:14px">Fun fact : cette physique repose sur des particules appelées bosons médiateurs, qui transmettent les forces fondamentales entre les fermions — un peu comme les médiateurs scientifiques transmettent la science entre scientifiques et non-scientifiques&nbsp;:)</p>
-      <div class="hero-cta" style="margin-top:22px">
-        <a class="btn btn-line" href="blog/">Plus d'informations <span class="arr">→</span></a>
+    <div class="hero-text">
+      <div>
+        <div class="hero-scale">10⁻¹⁵ m ········· 4 806 m</div>
+        <h1>De l’infiniment petit <em>aux sommets</em> des Alpes</h1>
+        <p class="hero-lede">Médiateur scientifique à Grenoble, physicien des particules de formation. Je conçois et j'anime des ateliers et des dispositifs de médiation, et j'écris pour rendre les sciences accessibles.</p>
+      </div>
+      <div class="hero-me">
+        <figure class="pola me">
+          <span class="tape"></span>
+          <img src="assets/Hector_PILLOT.webp" width="640" height="799" alt="Hector Pillot, de profil, casquette sur la tête, dans une forêt enneigée">
+          <figcaption>Figure 1b — Hector, en rando.<br>Crédit : Natan PILLOT</figcaption>
+        </figure>
+        <p class="hero-quote">« Moi c'est Hector — médiateur scientifique grenoblois, spécialisé dans la physique mais pas que ! Et passionné par les montagnes. »</p>
       </div>
     </div>
   </div>
-</section>
 
-<!-- LA VIE ASSOCIATIVE -->
-<section class="section" style="padding-top:0">
-  <div class="wrap" style="max-width:880px">
-    <span class="section-tag reveal-up">La vie associative</span>
-    <h2 class="head reveal-up">Une liberté fertile.</h2>
-    <p class="lead-p reveal-up" style="margin-top:20px">L'associatif a toujours pris une grande place dans ma vie. Les BDE m'ont appris la gestion de projet et la gestion d'équipe, mais j'ai rapidement souhaité voir plus loin : organiser des visites de laboratoires, rencontrer des doctorant·es, écrire des articles dans un webzine. Aujourd'hui, je participe à des projets de culture scientifique dans plusieurs associations.</p>
-    <div class="hero-cta" style="margin-top:22px">
-        <a class="btn btn-line" href="cv/">Mon engagement <span class="arr">→</span></a>
+  <!-- INTERESTS PIE (built by js/home.js) -->
+  <section class="pie-sec" id="pie" aria-label="Mes terrains de jeu"></section>
+</div>
+
+<!-- MÉDIATION -->
+<section id="mediation" class="band both">
+  <div class="wrap pad mediation">
+    <div>
+      <h2 class="h2">Échanger autour d'un moment convivial plutôt qu'éduquer.</h2>
+      <p>La médiation m'a appris à voir les sciences d'un autre œil, à me mettre à la place des différents publics et à me demander comment transmettre au mieux ma passion. C'est un échange pendant lequel j'apprends autant que j'explique.</p>
+      <p>Je suis actuellement actif dans l'association de transmission des savoirs scientifiques : AurorAlpes.</p>
+      <a class="logo-link" href="https://www.canva.com/design/DAGBcHxrSmU/pbud_5JWLcK6IOBBBrVBHQ/view" target="_blank" rel="noopener"><img src="assets/auroralpes-logo.webp" alt="AurorAlpes"><span>Découvrez notre catalogue d'animations !</span></a>
+    </div>
+    <div class="mosaic">
+      <figure><img src="assets/img_20240823_085659.webp" alt="Animation scientifique" loading="lazy"><figcaption>Figure 3a — Animation scientifique</figcaption></figure>
+      <figure><img src="assets/img_20240823_085639.webp" alt="Atelier de médiation" loading="lazy"><figcaption>Figure 3b — Atelier</figcaption></figure>
+      <figure><img src="assets/20240607_162700.webp" alt="Atelier" loading="lazy"><figcaption>Figure 3c — Atelier</figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- ARTICLES RÉCENTS -->
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <span class="section-tag reveal-up">Articles récents</span>
-    <h2 class="head reveal-up" style="margin-bottom:24px">Le blog</h2>
-    <div class="blog-grid">
-      <article class="blog-card reveal-up">
-        <a class="blog-card-imgwrap" href="blog/leopard-d-arabie/">
-          <img class="blog-card-img" src="assets/blog/leopard.webp" alt="Léopard d&#x27;Arabie" loading="lazy" decoding="async">
-          <div class="blog-card-overlay">
-            <span class="blog-card-date">Février 2026</span>
-            <h3 class="blog-card-title">Léopard d&#x27;Arabie</h3>
-            <span class="blog-card-tag">Biologie</span>
-          </div>
-        </a>
-      </article>
-      <article class="blog-card reveal-up">
-        <a class="blog-card-imgwrap" href="blog/effet-mathilda/">
-          <img class="blog-card-img" src="assets/blog/matilda.webp" alt="L&#x27;Effet Mathilda" loading="lazy" decoding="async">
-          <div class="blog-card-overlay">
-            <span class="blog-card-date">Février 2026</span>
-            <h3 class="blog-card-title">L&#x27;Effet Mathilda</h3>
-            <span class="blog-card-tag">Sociologie</span>
-          </div>
-        </a>
-      </article>
-      <article class="blog-card reveal-up">
-        <a class="blog-card-imgwrap" href="blog/hydrocerames/">
-          <img class="blog-card-img" src="assets/blog/hydrocerame.webp" alt="Les hydrocérames, ces vases qui suent" loading="lazy" decoding="async">
-          <div class="blog-card-overlay">
-            <span class="blog-card-date">Décembre 2025</span>
-            <h3 class="blog-card-title">Les hydrocérames, ces vases qui suent</h3>
-            <span class="blog-card-tag">Thermodynamique</span>
-          </div>
-        </a>
-      </article>
-    </div>
-    <div style="margin-top:28px">
-      <a class="btn btn-line" href="blog/">Tous les articles <span class="arr">→</span></a>
-    </div>
+<div class="wrap" style="padding-top:56px;padding-bottom:56px">
+  <div class="muon">
+    <div class="muon-n"><b id="muons" aria-live="off">0</b><span>μ</span></div>
+    <p>muons cosmiques ont traversé ta main (≈ 100 cm²) depuis ton arrivée sur cette page. Estimation : environ 1 muon par cm² et par minute au niveau de la mer.</p>
+  </div>
+</div>
+
+<!-- BLOG -->
+<section id="blog" class="band">
+  <div class="wrap" style="padding-top:60px;padding-bottom:70px">
+    <div class="notes-head"><h2>Notes de <em>carnet</em></h2><a href="blog/">Tous les articles →</a></div>
+<!-- NOTES:start -->
+    <div class="notes"><a class="note" href="blog/leopard-d-arabie/" style="transform:rotate(-1.6deg)"><svg class="clip" viewBox="0 0 24 60" style="top:-30px;left:24%;transform:rotate(8deg)" aria-hidden="true"><path d="M7 52V14a5 5 0 0 1 10 0v34a8 8 0 0 1-16 0V12a9 9 0 0 1 18 0v30" transform="translate(2 2)" fill="none" stroke="#8a8f99" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><img src="assets/blog/leopard.webp" alt="Léopard d&#x27;Arabie" loading="lazy" width="400" height="500"><div class="cap">Figure 4a · Février 2026</div><div class="ttl">Léopard d&#x27;Arabie</div></a><a class="note" href="blog/effet-mathilda/" style="transform:rotate(1.2deg)"><svg class="clip" viewBox="0 0 24 60" style="top:-34px;left:71%;transform:rotate(-7deg)" aria-hidden="true"><path d="M7 52V14a5 5 0 0 1 10 0v34a8 8 0 0 1-16 0V12a9 9 0 0 1 18 0v30" transform="translate(2 2)" fill="none" stroke="#8a8f99" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><img src="assets/blog/matilda.webp" alt="L&#x27;Effet Matilda" loading="lazy" width="400" height="500"><div class="cap">Figure 4b · Février 2026</div><div class="ttl">L&#x27;Effet Matilda</div></a><a class="note" href="blog/hydrocerames/" style="transform:rotate(-0.8deg)"><svg class="clip" viewBox="0 0 24 60" style="top:-27px;left:46%;transform:rotate(13deg)" aria-hidden="true"><path d="M7 52V14a5 5 0 0 1 10 0v34a8 8 0 0 1-16 0V12a9 9 0 0 1 18 0v30" transform="translate(2 2)" fill="none" stroke="#8a8f99" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><img src="assets/blog/hydrocerame.webp" alt="Les hydrocérames, ces vases qui suent" loading="lazy" width="400" height="500"><div class="cap">Figure 4c · Décembre 2025</div><div class="ttl">Les hydrocérames, ces vases qui suent</div></a></div>
+    <div class="notes-hint" aria-hidden="true">← glisser pour voir les autres →</div>
+    <!-- NOTES:end -->
   </div>
 </section>
+
+<div style="padding:48px 0 56px">
+  <div class="wrap"><div class="feed" id="serotine-feed" data-url="https://serotine.fr/newsletter/rss.xml"><div class="empty" role="status">Sérotine · flux bientôt disponible</div></div></div>
+</div>
+</main>
 
 <div data-include="footer"></div>
-
+</div>
 <script src="js/include.js"></script>
-<script src="js/main.js"></script>
+<script src="js/site.js"></script>
+<script src="js/home.js"></script>
 </body>
 </html>
