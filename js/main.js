@@ -1,4 +1,4 @@
-/* ===== Alp'Sciences — shared interactions ===== */
+/* ===== Alp'Sciences - shared interactions ===== */
 (function () {
   "use strict";
 

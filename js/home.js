@@ -1,4 +1,4 @@
-/* ===== Alp'Sciences — home page widgets: cloud chamber, interests pie, muon counter, Sérotine feed ===== */
+/* ===== Alp'Sciences - home page widgets: cloud chamber, interests pie, muon counter, Sérotine feed ===== */
 (function () {
   "use strict";
   const $ = (s, r) => (r || document).querySelector(s);
@@ -132,13 +132,13 @@
       $("#pie-no").textContent = "0" + (sel + 1);
       list.innerHTML = D.map((d, i) => '<li><button type="button" data-i="' + i + '" aria-pressed="' + (i === sel) + '"><span class="dot" style="background:' + d.fill + '"></span><span>' + esc(d.name) + '</span><span class="no">0' + (i + 1) + "</span></button></li>").join("");
       const d = D[sel], fig = "Figure 2" + L[sel];
-      panel.innerHTML = '<figure><img src="' + BASE + d.src + '" alt="' + esc(d.alt) + '" loading="lazy"><figcaption>' + fig + " — " + esc(d.alt) + '</figcaption></figure><div class="pie-cols"><div><h3>' + esc(d.name) + "</h3><p>" + esc(d.text) + '</p></div><div><div class="ex-title">' + T("Exemples de projets") + "</div>" + exHtml(d) + "</div></div>";
+      panel.innerHTML = '<figure><img src="' + BASE + d.src + '" alt="' + esc(d.alt) + '" loading="lazy"><figcaption>' + fig + " - " + esc(d.alt) + '</figcaption></figure><div class="pie-cols"><div><h3>' + esc(d.name) + "</h3><p>" + esc(d.text) + '</p></div><div><div class="ex-title">' + T("Exemples de projets") + "</div>" + exHtml(d) + "</div></div>";
       const w = $("#pie-wrap").getBoundingClientRect().width;
       panel.style.setProperty("--pie-h", Math.round(w) + "px");
     }
     function openSheet() {
       const d = D[sel], fig = "Figure 2" + L[sel];
-      $("#pie-sheet-body").innerHTML = '<div class="k">' + fig + " · 0" + (sel + 1) + " " + T("sur 06") + "</div><h3>" + esc(d.name) + '</h3><img src="' + BASE + d.src + '" alt="' + esc(d.alt) + '"><div class="fig">' + fig + " — " + esc(d.alt) + "</div><p>" + esc(d.text) + '</p><div class="ex-title" style="margin-top:16px">' + T("Exemples de projets") + '</div>' + exHtml(d);
+      $("#pie-sheet-body").innerHTML = '<div class="k">' + fig + " · 0" + (sel + 1) + " " + T("sur 06") + "</div><h3>" + esc(d.name) + '</h3><img src="' + BASE + d.src + '" alt="' + esc(d.alt) + '"><div class="fig">' + fig + " - " + esc(d.alt) + "</div><p>" + esc(d.text) + '</p><div class="ex-title" style="margin-top:16px">' + T("Exemples de projets") + '</div>' + exHtml(d);
       sheet.classList.add("open"); sheet.querySelector(".x").focus();
     }
     const closeSheet = () => sheet.classList.remove("open");
