@@ -172,9 +172,9 @@
     const cols = ["#8c57f6", "#4a2e6f", "#f1cb48", "#efcc83"];
     const order = [1, 0, 2, 3];
     const MO = ["janv", "fév", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"];
-    // grouped by end year; "Maintenant" = current year
-    const yearOf = (w) => { if (/maintenant/i.test(w) || /–\s*$/.test(w)) return new Date().getFullYear(); const m = w.match(/20\d\d/g); return m ? Number(m[m.length - 1]) : 0; };
-    const monthOf = (w) => { const pre = w.split(/20\d\d/)[0].toLowerCase(); const i = MO.findIndex((x) => pre.includes(x)); return i < 0 ? 0 : i + 1; };
+    // grouped and sorted by start date (first year / first month in the text)
+    const yearOf = (w) => { const m = w.match(/20\d\d/); return m ? Number(m[0]) : 0; };
+    const monthOf = (w) => { const pre = w.split(/20\d\d/)[0].toLowerCase(); let best = 0, pos = Infinity; MO.forEach((x, i) => { const k = pre.indexOf(x); if (k >= 0 && k < pos) { pos = k; best = i + 1; } }); return best; };
     const esc = (s) => T(String(s)).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     const on = [true, true, true, true];
     const flat = [];
