@@ -1,4 +1,4 @@
-/* ===== Alp'Sciences — redesign interactions (theme, grain, altitude, lists) ===== */
+/* ===== Alp'Sciences - redesign interactions (theme, grain, altitude, lists) ===== */
 (function () {
   "use strict";
   const $ = (s, r) => (r || document).querySelector(s);

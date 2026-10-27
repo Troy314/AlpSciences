@@ -1,4 +1,4 @@
-/* ===== Alp'Sciences — shared header/footer loader ===== */
+/* ===== Alp'Sciences - shared header/footer loader ===== */
 (function () {
   "use strict";
 

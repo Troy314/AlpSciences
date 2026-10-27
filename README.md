@@ -1,4 +1,4 @@
-# Alp'Sciences — site web bilingue / bilingual website
+# Alp'Sciences - site web bilingue / bilingual website
 
 > « De l'infiniment petit aux sommets »
 
@@ -18,16 +18,16 @@ comme l'exigent les hébergeurs statiques.
 | FR | EN | Description |
 |----|-----|-------------|
 | `index.html` (`/`) | `en/index.html` (`/en/`) | Accueil / Main (manuel, section blog auto-injectée) |
-| `blog/` | `en/blog/` | Blog — liste des articles (généré) |
+| `blog/` | `en/blog/` | Blog - liste des articles (généré) |
 | `blog/<id>/` | `en/blog/<id>/` | Page d'article (générée) |
 | `cv/` | `en/cv/` | CV & Portfolio (manuel) |
-| `projets/` | `en/projects/` | Projets — galerie + frise (généré) |
+| `projets/` | `en/projects/` | Projets - galerie + frise (généré) |
 | `projets/<id>/` | `en/projects/<id>/` | Page de projet (générée) |
 | `contact/` | `en/contact/` | Contact (manuel) |
 | `mentions-legales/` | `en/legal-notice/` | Mentions légales (manuel) |
 | `404.html` | `en/404.html` | Page d'erreur (manuel, liens en chemins absolus) |
-| `sitemap.xml` | — | Sitemap SEO (généré) |
-| `robots.txt` | — | Robots SEO (manuel) |
+| `sitemap.xml` | - | Sitemap SEO (généré) |
+| `robots.txt` | - | Robots SEO (manuel) |
 
 Le header et le footer ne sont pas dupliqués dans chaque page : ils vivent
 dans `partials/header-{fr,en}.html` et `partials/footer-{fr,en}.html`, et
@@ -37,7 +37,7 @@ profondeur du dossier).
 
 ---
 
-## Générateur — `build.py`
+## Générateur - `build.py`
 
 Aucune dépendance : **Python 3 standard** suffit.
 
@@ -46,7 +46,7 @@ python3 build.py
 ```
 
 Génère actuellement **~27 fichiers** (varie selon le nombre de projets et d'articles).
-GitHub Pages n'exécute pas `build.py` — il sert le HTML statique déjà produit.
+GitHub Pages n'exécute pas `build.py` - il sert le HTML statique déjà produit.
 **Relancez `build.py` après chaque modification de la base de données.**
 
 ### Ce que génère `build.py`
@@ -64,14 +64,14 @@ Si `data/posts.json` est absent, le blog affiche un écran « bientôt disponibl
 
 ---
 
-## Base de données projets — `data/projects.json`
+## Base de données projets - `data/projects.json`
 
 Tableau JSON, un objet par projet. Champs principaux :
 
 | Champ | Description |
 |-------|-------------|
 | `id` | slug unique (nom du fichier HTML) |
-| `sortDate` | `"YYYY-MM"` — classement chronologique |
+| `sortDate` | `"YYYY-MM"` - classement chronologique |
 | `title` / `title_en` | Titre FR / EN |
 | `dateRange` / `dateRange_en` | Période affichée |
 | `image` | URL ou chemin local |
@@ -81,7 +81,7 @@ Tableau JSON, un objet par projet. Champs principaux :
 | `ressources` | `[{label, label_en, url}]` |
 | `pinned` | `true` → article en tête de la galerie |
 
-### Éditeur projets — `editeur-projets.html`
+### Éditeur projets - `editeur-projets.html`
 
 Ouvrir dans le navigateur (fichier local). Éditeur visuel FR|EN côte à côte :
 - Glisser-déposer pour réordonner les projets dans la liste.
@@ -91,7 +91,7 @@ Ouvrir dans le navigateur (fichier local). Éditeur visuel FR|EN côte à côte 
 
 ---
 
-## Base de données blog — `data/posts.json`
+## Base de données blog - `data/posts.json`
 
 Tableau JSON, un objet par article :
 
@@ -105,7 +105,7 @@ Tableau JSON, un objet par article :
 | `excerpt` / `excerpt_en` | Extrait court (liste + accueil) |
 | `body` / `body_en` | Corps HTML complet de l'article |
 
-### Éditeur blog — `editeur-blog.html`
+### Éditeur blog - `editeur-blog.html`
 
 Ouvrir dans le navigateur (fichier local). Même ergonomie que l'éditeur projets :
 - Corps de l'article en blocs : **Paragraphe**, **Sous-titre**, **Liste**, **HTML brut**, **Grille**.

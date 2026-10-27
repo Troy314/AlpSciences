@@ -1,14 +1,14 @@
 /* =========================================================================
-   Alp'Sciences — brand charter applied
+   Alp'Sciences - brand charter applied
    « De l'infiniment petit aux sommets »
    Type: Libre Baskerville  ·  Purple (#4a2e6f / #8c57f6) + Gold (#f1cb48 / #efcc83)
    ========================================================================= */
 
 :root {
   /* charter palette */
-  --violet:     #8c57f6;   /* mauve vif  — bright accent / primary CTA */
+  --violet:     #8c57f6;   /* mauve vif  - bright accent / primary CTA */
   --violet-dk:  #6f3fd6;
-  --plum:       #4a2e6f;   /* mauve      — primary brand purple */
+  --plum:       #4a2e6f;   /* mauve      - primary brand purple */
   --plum-deep:  #341f50;   /* darker plum for hero / footer */
   --plum-ink:   #2c1b43;   /* near-black plum for text */
   --gold:       #f1cb48;   /* deep gold accent */
@@ -292,7 +292,7 @@ details.exp .body a { font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
 
 /* ============================================================
-   v3 — projects timeline, tag filter, project detail, blog
+   v3 - projects timeline, tag filter, project detail, blog
    ============================================================ */
 
 /* justify body prose */
@@ -371,7 +371,7 @@ p, .lead-p, .abstract, .proj-section li, .blog-intro, .tl-item .desc, details.ex
   .ptl-media, .ptl-abs { max-width: 100%; }
 }
 
-/* ---- per-item CV logos (from the original CV) — left, as timeline node ---- */
+/* ---- per-item CV logos (from the original CV) - left, as timeline node ---- */
 .tl-logo { position: absolute; left: 0; top: 0; width: 62px; height: 62px; object-fit: contain;
   background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 8px;
   box-shadow: var(--shadow-sm); z-index: 1; }
@@ -392,7 +392,7 @@ p, .lead-p, .abstract, .proj-section li, .blog-intro, .tl-item .desc, details.ex
 .recent-band { text-align: center; background: var(--paper-pure); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow-sm); }
 
 /* ============================================================
-   v4 — index credits, partner motion, detail-page timeline
+   v4 - index credits, partner motion, detail-page timeline
    ============================================================ */
 
 /* image credit captions (figure.shot wraps strip + portrait images) */
@@ -419,7 +419,7 @@ p, .lead-p, .abstract, .proj-section li, .blog-intro, .tl-item .desc, details.ex
 .partner:hover span { color: var(--violet-dk); }
 .partner:hover span::after { transform: translateX(5px); }
 
-/* project detail — vertical timeline down the left of the sections */
+/* project detail - vertical timeline down the left of the sections */
 .proj-timeline { position: relative; padding-left: 32px; }
 .proj-timeline::before {
   content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px;
@@ -434,7 +434,7 @@ p, .lead-p, .abstract, .proj-section li, .blog-intro, .tl-item .desc, details.ex
 }
 
 /* =========================================================================
-   Portfolio listing — Gallery (masonry) default + Timeline toggle
+   Portfolio listing - Gallery (masonry) default + Timeline toggle
    The spine/dots from .ptl only render in .is-timeline.
    ========================================================================= */
 
@@ -514,7 +514,7 @@ p, .lead-p, .abstract, .proj-section li, .blog-intro, .tl-item .desc, details.ex
 .bk-cell img { width: 100%; border-radius: 12px; box-shadow: var(--shadow-sm); display: block; }
 @media (max-width: 600px) { .bk-grid { grid-template-columns: 1fr !important; } }
 
-/* ---- blog cards (listing page) — portrait image + date/title below ---- */
+/* ---- blog cards (listing page) - portrait image + date/title below ---- */
 .blog-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .3s, box-shadow .3s; }
 .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .blog-card-imgwrap { position: relative; display: block; }
